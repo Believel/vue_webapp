@@ -65,3 +65,40 @@ app.use('/api', apiRoutes);
   发现有错误：`Cannot find module 'stylus'`,所以
   要先安装：`npm install stylus-loader stylus --save-dev`，就能解决了
 3. flex布局
+   `display: block`
+   `flex: 1`
+   在iphone6中物理像素是设备上的两倍，所以针对设置1px的边框大小要单独处理
+   3.1 如何处理(利用伪类+缩放实现1px下边框)
+```js
+//伪类设置
+border-1px(@color)
+  position: relative
+  &::after
+    position: absolute
+    left: 0
+    bottom: 0
+    width: 100%
+    border-bottom: 1px solid @color
+    content: ' '
+ // 缩放比设置
+ @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5){
+  .border-1px 
+    &::after
+      -webkit-transform: scaleY(0.7)
+      transform: scaleY(0.7)
+}
+@media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2){
+  .border-1px 
+    &::after
+      -webkit-transform: scaleY(0.5)
+      transform: scaleY(0.5)
+}
+
+```
+4. 用手机访问webApp页面，把localhost地址换成本地的地址(通过ipconfig查看本机的地址)，例如地址`localhost:8080/#!/seller`就换成`http://192.168.1.105:8080/#!/seller`
+  ,然后访问`http://cli.im/url`，生成一个二维码，通过扫在iphone6手机上查看效果
+
+5. es6中Module语法
+vue-resource: 1.0.1
+vue的生命周期
+

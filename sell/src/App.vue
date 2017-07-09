@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div>
     <v-header></v-header>
-    <div class="tab">
+    <div class="tab border-1px">
         <div class="tab-item">
           <a v-link="{path:'/goods'}">商品</a>
         </div>
@@ -26,15 +26,22 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus"> 
-  #app
+    @import 'common/stylus/mixin.styl'
     .tab
-      display: flex;
-      width: 100%;
-      height: 40px;
-      line-height: 40px;
+      display: flex
+      width: 100%
+      height: 40px
+      line-height: 40px
+      border-1px(7, 17, 27, 0.1)
       .tab-item
-        flex: 1;
-        text-align: center;
+        flex: 1
+        text-align: center
+        & > a
+          display: block
+          font-size: 14px
+          color: rgb(77, 85, 93)
+          &.active
+            color: rgb(240, 20, 20)
 </style>
 
 
