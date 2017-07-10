@@ -21,6 +21,8 @@ module.exports = {
     // allow 有分号配置
     'semi' : ['error', 'always'],
     // 把缩进视为0
-    'indent':0
+    'indent':0,
+    'space-before-function-paren':0,
+    'padded-blocks':0
   }
 }

@@ -95,10 +95,52 @@ border-1px(@color)
 }
 
 ```
+4. css布局——背景图片铺满整个盒子
+ ```js
+   .parent 
+     position: relative
+     .child_bg
+       position: absolute
+       left:0
+       bottom: 0
+       z-index: -1
+       filter: blur(10px) //设置模糊程度
+ ```
+5. css sticky footer 布局
+6.
 4. 用手机访问webApp页面，把localhost地址换成本地的地址(通过ipconfig查看本机的地址)，例如地址`localhost:8080/#!/seller`就换成`http://192.168.1.105:8080/#!/seller`
   ,然后访问`http://cli.im/url`，生成一个二维码，通过扫在iphone6手机上查看效果
 
+
 5. es6中Module语法
-vue-resource: 1.0.1
-vue的生命周期
+
+```js
+// ES6模块
+// import命令用于输入其他模块提供的功能
+import {stat, exits, readFile} from 'fs';//实质是fs模块加载3个方法，其他方法不加载
+// export命令用于规定模块的对外接口
+//写法一
+export var m =1;
+//写法二
+var m =1;
+export {m};
+//写法三
+var n =1;
+export {n as m};
+// export default命令，为模块指定默认输出,但是一个模块只能有一个默认输出，一次export default命令只能使用一次
+// export default命令用在非匿名函数前，也是可以的 。
+export default function foo(){
+  console.log('foo');
+}
+
+```
+
+
+
+
+
+
+
+# vuex认识
+Vuex是类似与Redux的状态管理器，用来管理vue的所有组件状态。
 

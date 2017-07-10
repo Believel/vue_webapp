@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
 import App from './App';
 import goods from 'components/goods/goods.vue';
 import ratings from 'components/ratings/ratings.vue';
@@ -7,6 +8,7 @@ import seller from 'components/seller/seller.vue';
 import 'common/stylus/index.styl';
 
 Vue.use(VueRouter);
+Vue.use(VueResource);
 // 路由器需要一个根组件,参数是一个选项对象，包括数据、模板、挂载元素、方法、生命周期等
 let app = Vue.extend(App);
 
