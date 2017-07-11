@@ -20,7 +20,7 @@
          </div>
          <!-- 广告个数 -->
          <div class="support-count" v-if="seller.supports" @click="detailShow">
-          <span class="count">{{seller.supports.length}}个</span>  
+          <span class="count">{{seller.supports.length}}个</span>
           <i class="icon-keyboard_arrow_right"></i>
          </div>
       </div>
@@ -34,12 +34,23 @@
         <img :src="seller.avatar" width="100%" height="100%">
       </div>
 <!-- 弹出层布局 -->
-      <div class="detail" v-show="detailShow">
-        
+      <div class="detail" v-show="detailIsShow">
+        <!--sticky footer布局-->
+        <div class="detail-wrapper clearfix">
+          <div class="detail-main">
+            <p>{{seller.bulletin}}</p>
+            <p>{{seller.bulletin}}</p>
+            <p>{{seller.bulletin}}</p>
+            <p>{{seller.bulletin}}</p>
+          </div>
+        </div>
+        <div class="detail-close">
+          <i class="icon-close"></i>
+        </div>
       </div>
   </div>
 </template>
-  
+
 <script type="text/ecmascript-6">
   export default {
     props: {
@@ -49,12 +60,12 @@
     },
     data() {
       return {
-        detailShow: false
+        detailIsShow: false
       };
     },
     methods: {
       detailShow() {
-          this.detailShow = true;
+          this.detailIsShow = true;
       }
     },
     created() {
@@ -165,26 +176,46 @@
         top: 8px
         font-size: 10px
         margin-left: 4px
-    .background 
+    .background
       position: absolute
       left: 0
-      bottom: 0
+      top: 0
+      width:100%
+      height:100%
       z-index: -1
       filter: blur(10px)
-    .detail 
+    .detail
       position: fixed
+      z-index: 100
       left: 0
-      bottom: 0
+      top: 0
       width: 100%
       height: 100%
-      z-index: 100
-      background: rgba(7, 17, 27, 0.8) 
-      filter: blur(10px)     
-          
-          
-          
-        
-          
-            
+      overflow: auto
+      background: rgba(7, 17, 27, 0.8)
+      backdrop-filter: blur(10px)
+      .detail-wrapper
+        width: 100%
+        min-height:100%
+        .detail-main
+          margin-top: 64px
+          padding-bottom: 64px
+      .detail-close
+        position: relative
+        margin: -64px auto 0 auto
+        clear: both
+        width: 32px
+        height: 32px
+        font-size: 32px
+
+
+
+
+
+
+
+
+
+
 </style>
 

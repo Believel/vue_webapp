@@ -105,9 +105,76 @@ border-1px(@color)
        bottom: 0
        z-index: -1
        filter: blur(10px) //设置模糊程度
+       //兼容性比较好，不仅仅作用于当前元素，后代元素也会继承这个属性，作用于一个空背景元素没有效果
+       //使用场景：效果其实还是通过作用于具体的img元素才实现模糊效果，如果单单作用于一个空元素背景，则没有效果
  ```
+ 示例：![filter](https://raw.githubusercontent.com/Believel/MarkdownPhotos/master/imgs/vue-sell/filter.png)
+5.全屏遮罩层设置
+```js
+  .detail
+      position: fixed
+      z-index: 100
+      left: 0
+      top: 0
+      width: 100%
+      height: 100%
+      overflow: auto
+      background: rgba(7, 17, 27, 0.8)
+      backdrop-filter: blur(10px)//用于只对元素的背景做filter效果
+      //运用backdrop-filter元素的背景应该使用半透明，不然永远看不到效果
+      //当backdrop-filter属性和裁剪属性(如border-radius、mask、clip-path)结合一起使用，会有bug产生
+      //backdrop-filter可以创建一个堆栈文本(Stacking Context)，类似于opacity属性一样著作权归作者所有。
+      //可以配合动画属性animation一起使用
+      //到目前为止，仅有Safari浏览器支持，而且还需要添加前缀：-webkit-backdrop-filter著作权归作者所有。
+      //使用场景：为背景添加模糊效果；如果目标元素内包裹着其他内容，则应用filter属性(不支持安卓，效果不明显)
+```
+示例：![bacdrop-fiter](https://raw.githubusercontent.com/Believel/MarkdownPhotos/master/imgs/vue-sell/backdrop-filter.png)
 5. css sticky footer 布局
-6.
+概括如下：如果页面内容不够长的时候，页脚块粘贴在视窗底部；如果内容足够长时，页脚块会被内容向下推送。
+```html
+      <div class="detail-wrapper clearfix">
+          <div class="detail-main">
+            <p>{{seller.bulletin}}</p>
+            <p>{{seller.bulletin}}</p>
+            <p>{{seller.bulletin}}</p>
+            <p>{{seller.bulletin}}</p>
+          </div>
+        </div>
+        <div class="detail-close">
+          <i class="icon-close"></i>
+        </div>
+      </div>
+```
+```js
+      .detail-wrapper
+        width: 100%
+        min-height:100%
+        .detail-main
+          margin-top: 64px
+          padding-bottom: 64px /*最重要的一步，为了给footer盒子留位置*/
+      .detail-close
+        position: relative
+        margin: -64px auto 0 auto
+        clear: both
+        width: 32px
+        height: 32px
+        font-size: 32px
+```
+
+示例：![sticky footer ](https://raw.githubusercontent.com/Believel/MarkdownPhotos/master/imgs/vue-sell/sticky-footer.png)
+
+6. CSS3的calc()使用
+calculate是css3的一个新增的功能，用来指定元素的长度。
+最大的好处是用在流体布局上，可以通过calc()计算得到元素的宽度。
+
+```js
+//calc()语法
+.elm {
+  wifth: calc(expression);
+}
+``` 
+
+
 4. 用手机访问webApp页面，把localhost地址换成本地的地址(通过ipconfig查看本机的地址)，例如地址`localhost:8080/#!/seller`就换成`http://192.168.1.105:8080/#!/seller`
   ,然后访问`http://cli.im/url`，生成一个二维码，通过扫在iphone6手机上查看效果
 
