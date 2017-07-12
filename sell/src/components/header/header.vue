@@ -34,7 +34,7 @@
         <img :src="seller.avatar" width="100%" height="100%">
       </div>
 <!-- 弹出层布局 -->
-      <div class="detail" v-show="detailIsShow">
+      <div class="detail" v-show="detailIsShow" transition="hide">
         <!--sticky footer布局-->
         <div class="detail-wrapper clearfix">
           <div class="detail-main">
@@ -63,7 +63,7 @@
             </div>
           </div>
         </div>
-        <div class="detail-close">
+        <div class="detail-close" @click="hideDetail">
           <i class="icon-close"></i>
         </div>
       </div>
@@ -85,7 +85,10 @@
     },
     methods: {
       detailShow() {
-          this.detailIsShow = true;
+        this.detailIsShow = true;
+      },
+      hideDetail() {
+        this.detailIsShow = false;
       }
     },
     created() {
@@ -215,8 +218,14 @@
       width: 100%
       height: 100%
       overflow: auto
-      background: rgba(7, 17, 27, 0.8)
       backdrop-filter: blur(10px)
+      transition: all 0.5s
+      &.hide-transition
+        opacity: 1
+        background: rgba(7, 17, 27, 0.8)
+      &.hide-enter,&.hide-leave
+        opacity:0
+        background: rgba(7, 17, 27, 0)
       .detail-wrapper
         width: 100%
         min-height:100%
@@ -273,6 +282,13 @@
                 line-height: 16px
                 font-size: 12px
 
+          .bulletin
+            width: 80%
+            margin: 0 auto
+            .content
+              padding: 0 12px
+              font-size: 12px
+              line-height: 24px
       .detail-close
         position: relative
         margin: -64px auto 0 auto
