@@ -95,6 +95,27 @@ border-1px(@color)
 }
 
 ```
+3.2 flex布局的属性
+3.2.1 flex-direction属性决定主轴的方向，取值分别有：
+              ：row(默认值);主轴为水平方向，起点在左端。
+              ：row-reverse;主轴为水平方向，起点在右端。
+              ：column;主轴为垂直方向，起点在上沿。
+              ：column-reverse;主轴为垂直方向，起点在下沿。
+3.2.2 flex-wrap属性
+      默认情况下，项目都排在一条线上，flex-wrap属性定义，如果一条轴线排不下，如何换行。
+      取值如下：
+      ：nowrap(默认);不换行。
+      ：wrap; 换行，第一行在上方。
+      ：wrap-reverse;换行，第一行在下方。
+3.2.3 flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap.
+3.2.4 justify-content属性定义了项目在主轴上的对齐方式。
+     取值如下：flex-start | flex-end | center | space-between | space-around
+3.2.5 align-items属性
+      定义项目在交叉轴上如何对齐。
+      取值：flex-start | flex-end | center | baseline | stretch;
+
+
+
 4. css布局——背景图片铺满整个盒子
  ```js
    .parent 
@@ -109,6 +130,7 @@ border-1px(@color)
        //使用场景：效果其实还是通过作用于具体的img元素才实现模糊效果，如果单单作用于一个空元素背景，则没有效果
  ```
  示例：![filter](https://raw.githubusercontent.com/Believel/MarkdownPhotos/master/imgs/vue-sell/filter.png)
+
 5.全屏遮罩层设置
 ```js
   .detail
@@ -129,7 +151,8 @@ border-1px(@color)
       //使用场景：为背景添加模糊效果；如果目标元素内包裹着其他内容，则应用filter属性(不支持安卓，效果不明显)
 ```
 示例：![bacdrop-fiter](https://raw.githubusercontent.com/Believel/MarkdownPhotos/master/imgs/vue-sell/backdrop-filter.png)
-5. css sticky footer 布局
+
+6. css sticky footer 布局
 概括如下：如果页面内容不够长的时候，页脚块粘贴在视窗底部；如果内容足够长时，页脚块会被内容向下推送。
 ```html
       <div class="detail-wrapper clearfix">
@@ -163,7 +186,7 @@ border-1px(@color)
 
 示例：![sticky footer ](https://raw.githubusercontent.com/Believel/MarkdownPhotos/master/imgs/vue-sell/sticky-footer.png)
 
-6. CSS3的calc()使用
+7. CSS3的calc()使用
 calculate是css3的一个新增的功能，用来指定元素的长度。
 最大的好处是用在流体布局上，可以通过calc()计算得到元素的宽度。
 
@@ -175,11 +198,11 @@ calculate是css3的一个新增的功能，用来指定元素的长度。
 ``` 
 
 
-4. 用手机访问webApp页面，把localhost地址换成本地的地址(通过ipconfig查看本机的地址)，例如地址`localhost:8080/#!/seller`就换成`http://192.168.1.105:8080/#!/seller`
+8. 用手机访问webApp页面，把localhost地址换成本地的地址(通过ipconfig查看本机的地址)，例如地址`localhost:8080/#!/seller`就换成`http://192.168.1.105:8080/#!/seller`
   ,然后访问`http://cli.im/url`，生成一个二维码，通过扫在iphone6手机上查看效果
 
 
-5. es6中Module语法
+9. es6中Module语法
 
 ```js
 // ES6模块
