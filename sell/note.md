@@ -67,6 +67,7 @@ app.use('/api', apiRoutes);
 3. flex布局
    `display: block`
    `flex: 1`
+   flex可以接收三个参数：第一个：数字，第二个：数字，第三个：长度(带单位)
    在iphone6中物理像素是设备上的两倍，所以针对设置1px的边框大小要单独处理
    3.1 如何处理(利用伪类+缩放实现1px下边框)
 ```js
@@ -82,13 +83,13 @@ border-1px(@color)
     content: ' '
  // 缩放比设置
  @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5){
-  .border-1px 
+  .border-1px
     &::after
       -webkit-transform: scaleY(0.7)
       transform: scaleY(0.7)
 }
 @media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2){
-  .border-1px 
+  .border-1px
     &::after
       -webkit-transform: scaleY(0.5)
       transform: scaleY(0.5)
@@ -118,7 +119,7 @@ border-1px(@color)
 
 4. css布局——背景图片铺满整个盒子
  ```js
-   .parent 
+   .parent
      position: relative
      .child_bg
        position: absolute
@@ -195,8 +196,7 @@ calculate是css3的一个新增的功能，用来指定元素的长度。
 .elm {
   wifth: calc(expression);
 }
-``` 
-
+```
 
 8. 用手机访问webApp页面，把localhost地址换成本地的地址(通过ipconfig查看本机的地址)，例如地址`localhost:8080/#!/seller`就换成`http://192.168.1.105:8080/#!/seller`
   ,然后访问`http://cli.im/url`，生成一个二维码，通过扫在iphone6手机上查看效果
@@ -224,8 +224,40 @@ export default function foo(){
 }
 
 ```
+# vue1.0项目练习中的遇到的需要注意的点
+1. vue更新DOM的时候是异步操作，所以要使用
+
+```js
+this.$nextTick( () => {
+  //更新dom的操作(方法)
+
+})
+```
+2. vue中通过在html标签中添加v-el指定获得dom
+
+//html
+<p v-el:menu-wrapper></p>
+ //js
+this.$els.menuWrapper // 得到的就是p元素
+
+#  better-scroll插件的使用(移动端滚动的插件)
+1. npm install better-scroll
+2. 初始化需要滚动的DOM元素
+```js
+    this.menuScroll = new BScroll(this.$els.menuWrapper, {
+    });
+    this.foodsScroll = new BScroll(this.$els.foodsWrapper, {
+    });
+```
+3. 商品滚动案例功能需求
+(1)计算每个区块的高度，然后根据索引值在左边的菜单项中显示高亮的效果，每个区块的高度是一次联动增加的。
+(2)左侧菜单项点击的时候，右侧也显示相应的区块
+    根据点击对应的菜单项获得索引值，然后根据当前索引找右侧元素的索引，最后滚动到那个索引元素下面。
 
 
+
+
+问题：如何跟每个v-for遍历的元素添加v-ref指令，手动添加得到的是undefined?
 
 
 

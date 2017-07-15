@@ -72,6 +72,7 @@
 
 <script type="text/ecmascript-6">
   import star from 'components/star/star';
+
   export default {
     props: {
       seller: {
@@ -296,15 +297,5 @@
         width: 32px
         height: 32px
         font-size: 32px
-
-
-
-
-
-
-
-
-
-
 </style>
 
