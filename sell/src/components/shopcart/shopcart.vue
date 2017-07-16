@@ -25,6 +25,7 @@
 <script type="text/ecmascript-6">
   export default {
     props: {
+//      通过selectFoods控制购物车组件相应的变化
       selectFoods: {
         type: Array,
         default() {

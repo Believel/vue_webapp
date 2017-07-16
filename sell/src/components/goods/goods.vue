@@ -33,8 +33,10 @@
                   <span class="count">月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span>
                 </div>
                 <div class="price">
-                  <span class="now">￥{{food.price}}</span><span class="old"
-                                                                v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                  <span class="now">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                </div>
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol :food="food"></cartcontrol>
                 </div>
               </div>
             </li>
@@ -48,7 +50,10 @@
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
+//  引入购物车组件
   import shopcart from 'components/shopcart/shopcart';
+//  引入购物按钮组件
+  import cartcontrol from 'components/cartcontrol/cartcontrol';
   const ERR_OK = 0;
   export default {
     props: {
@@ -113,6 +118,7 @@
           click: true
         });
         this.foodsScroll = new BScroll(this.$els.foodsWrapper, {
+          click: true,
 //          3除了手指 move 的时候派发scroll事件，在 swipe（手指迅速滑动一小段距离）的情况下，列表会有一个长距离的滚动动画，这个滚动的动画过程中也会实时派发滚动事件
           probeType: 3
         });
@@ -132,8 +138,10 @@
         }
       }
     },
+//    注册相应的组件
     components: {
-      shopcart
+      shopcart,
+      cartcontrol
     }
   };
 </script>
@@ -242,4 +250,8 @@
               color: rgb(147, 153, 159)
 
 
+          .cartcontrol-wrapper
+            position: absolute
+            right: 0
+            bottom: 12px
 </style>
