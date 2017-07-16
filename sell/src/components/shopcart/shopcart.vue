@@ -19,6 +19,15 @@
         </div>
       </div>
     </div>
+    <!--实现小球抛物动画-->
+    <div class="ball-container">
+      <div transition="drop"
+           v-for="ball in balls"
+           v-show="ball.show"
+           class="ball">
+        <div class="inner inner-hook"></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -40,6 +49,28 @@
         type: Number,
         default: 0
       }
+    },
+    data() {
+      return {
+        balls: [
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          }
+        ],
+        dropBall: []
+      };
     },
     computed: {
       totalPrice() {
@@ -71,6 +102,62 @@
           return 'not-enough';
         } else {
           return 'enough';
+        }
+      }
+    },
+    methods: {
+      drop(el) {
+//        el拿到的就是当前点击小球的元素
+//        从所有的小球找到一个隐藏的小球将其设置为true,然后将它添加到dropBall里面
+        for (let i = 0; i < this.balls.length; i++) {
+          let ball = this.balls[i];
+          if (!ball.show) {
+            ball.show = true;
+            ball.el = el;
+            this.dropBall.push(ball);
+            return;
+          }
+        }
+      }
+    },
+    transitions: {
+      drop: {
+        beforeEnter(el) {
+          let count = this.balls.length;
+          while (count--) {
+            let ball = this.balls[count];
+            if (ball.show) {
+//              得到视口的值
+              let rect = ball.el.getBoundingClientRect();
+              let x = rect.left - 32;
+              let y = -(window.innerHeight - rect.top - 22);
+              el.style.display = '';
+              el.style.webkitTransform = `translate3d(0,${y}px,0)`;
+              el.style.transform = `translate3d(0,${y}px,0)`;
+              let inner = el.getElementsByClassName('inner-hook')[0];
+              inner.style.webkitTransform = `translate3d(${x}px, 0, 0)`;
+              inner.style.transform = `translate3d(${x}px, 0, 0)`;
+
+            }
+          }
+        },
+        enter(el) {
+          /* eslint-disable no-unused-vars */
+          let rf = el.offsetHeight;
+          this.$nextTick(() => {
+            el.style.webkitTransform = 'translate3d(0,0,0)';
+            el.style.transform = 'translate3d(0,0,0)';
+            let inner = el.getElementsByClassName('inner-hook')[0];
+            inner.style.webkitTransform = 'translate3d(0, 0, 0)';
+            inner.style.transform = 'translate3d(0, 0, 0)';
+          });
+        },
+        afterEnter(el) {
+          let ball = this.dropBall.shift();
+          if (ball) {
+            ball.show = false;
+            el.style.display = 'none';
+          }
         }
       }
     }
@@ -167,6 +254,21 @@
           &.enough
             background: #00B33B
             color: #ffffff
+
+    .ball-container
+      .ball
+        position: fixed
+        left: 32px
+        bottom: 22px
+        z-index: 200
+        &.drop-transition
+          transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41)
+          .inner
+            width: 16px
+            height: 16px
+            border-radius: 50%
+            background: rgb(0, 160, 220)
+            transition: all 0.4s linear
 
 
 </style>

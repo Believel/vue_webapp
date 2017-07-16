@@ -4,7 +4,7 @@
     <div class="cart-decrease "
          v-show="food.count>0"
          @click="decreasecart($event)"
-        transition="move">
+         transition="move">
       <span class="inner icon-remove_circle_outline"></span>
     </div>
     <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
@@ -33,6 +33,8 @@
         } else {
           this.food.count++;
         }
+//        派发事件，首先在实例上触发它，然后沿着父链向上冒泡在触发一个监听器后停止。
+        this.$dispatch('cart.add', event.target);
       },
       decreasecart(event) {
         if (!event._constructed) {
@@ -64,8 +66,8 @@
           line-height: 24px
           transition: all 0.4s linear
           transform: rotate(0)
-        /*动画进入和离开的样式*/
-      &.move-enter,&.move-leave
+      /*动画进入和离开的样式*/
+      &.move-enter, &.move-leave
         opacity: 0
         transform: translate3D(24, 0, 0)
         .inner

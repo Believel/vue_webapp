@@ -33,7 +33,8 @@
                   <span class="count">月售{{food.sellCount}}份</span><span>好评率{{food.rating}}%</span>
                 </div>
                 <div class="price">
-                  <span class="now">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                  <span class="now">￥{{food.price}}</span><span class="old"
+                                                                v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
                   <cartcontrol :food="food"></cartcontrol>
@@ -44,15 +45,16 @@
         </li>
       </ul>
     </div>
-    <shopcart :select-foods="selectFoods" :delivery="seller.deliveryPrice" :minprice="seller.minPrice"></shopcart>
+    <shopcart v-ref:shopcart :select-foods="selectFoods" :delivery="seller.deliveryPrice"
+              :minprice="seller.minPrice"></shopcart>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
-//  引入购物车组件
+  //  引入购物车组件
   import shopcart from 'components/shopcart/shopcart';
-//  引入购物按钮组件
+  //  引入购物按钮组件
   import cartcontrol from 'components/cartcontrol/cartcontrol';
   const ERR_OK = 0;
   export default {
@@ -83,15 +85,15 @@
       },
 //      计算属性：实现联动添加food,然后添加到shopcart组件中实现
       selectFoods() {
-        let foods = [];
+        let foos = [];
         this.goods.forEach((good) => {
           good.foods.forEach((food) => {
             if (food.count) {
-              foods.push(food);
+              foos.push(food);
             }
           });
         });
-        return foods;
+        return foos;
       }
     },
     created() {
@@ -124,6 +126,13 @@
 //        滚动到什么哪个元素下面
         this.foodsScroll.scrollToElement(el, 300);
       },
+      _drop(target) {
+//        访问子组件中的drop方法
+//        体验优化，异步调用下落动画
+        this.$nextTick(() => {
+          this.$refs.shopcart.drop(target);
+        });
+      },
       _initScroll() {
         this.menuScroll = new BScroll(this.$els.menuWrapper, {
 //          点击事件生效
@@ -143,7 +152,7 @@
         let foodList = this.$els.foodsWrapper.getElementsByClassName('food-list-hook');
         let height = 0;
         this.listHeight.push(height);
-        for (var i = 0; i < foodList.length; i++) {
+        for (let i = 0; i < foodList.length; i++) {
           let item = foodList[i];
           height += item.clientHeight;
           this.listHeight.push(height);
@@ -154,6 +163,12 @@
     components: {
       shopcart,
       cartcontrol
+    },
+//    事件方法
+    events: {
+      'cart.add'(target) {
+        this._drop(target);
+      }
     }
   };
 </script>
@@ -260,7 +275,6 @@
               text-decoration: line-through
               font-size: 10px
               color: rgb(147, 153, 159)
-
 
           .cartcontrol-wrapper
             position: absolute
