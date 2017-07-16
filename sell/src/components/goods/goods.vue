@@ -276,6 +276,7 @@
               font-size: 10px
               color: rgb(147, 153, 159)
 
+
           .cartcontrol-wrapper
             position: absolute
             right: 0

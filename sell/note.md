@@ -255,7 +255,7 @@ if(!event._constructed){
   return;
 }
 ```
-5.vue里面访问子组件方式
+5. vue里面访问子组件方式
 ```js
 //html 在子组件上定义一个子组件变量
  <shopcart v-ref:shopcart></shopcart>
@@ -263,6 +263,20 @@ if(!event._constructed){
 // 调用子组件中的drop方法
 this.$refs.shopcart.drop(target);
 ```
+6. vue子组件向父组件传参
+```js
+// 派发事件，首先在实例上触发它，然后沿着父链向上冒泡在触发一个监听器后停止。
+ //第一个参数是：事件名称
+ //第二个参数是：事件的参数值
+this.$dispatch('cart.add', event.target);
+
+//在父组件中可以在events事件中拿到子组件的传参
+events: {
+      'cart.add'(target) {
+        this._drop(target);
+      }
+    }
+``` 
 
 
 #  better-scroll插件的使用(移动端滚动的插件)
