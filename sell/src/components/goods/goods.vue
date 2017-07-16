@@ -44,7 +44,7 @@
         </li>
       </ul>
     </div>
-    <shopcart :delivery="seller.deliveryPrice" :minprice="seller.minPrice"></shopcart>
+    <shopcart :select-foods="selectFoods" :delivery="seller.deliveryPrice" :minprice="seller.minPrice"></shopcart>
   </div>
 </template>
 
@@ -80,6 +80,18 @@
           }
         }
         return 0;
+      },
+//      计算属性：实现联动添加food,然后添加到shopcart组件中实现
+      selectFoods() {
+        let foods = [];
+        this.goods.forEach((good) => {
+          good.foods.forEach((food) => {
+            if (food.count) {
+              foods.push(food);
+            }
+          });
+        });
+        return foods;
       }
     },
     created() {

@@ -1,8 +1,12 @@
 <template>
   <div class="cartcontrol">
-    <div class="cart-decrease icon-remove_circle_outline"
+    <!--添加动画效果：内层负责滚动，-->
+    <div class="cart-decrease "
          v-show="food.count>0"
-         @click="decreasecart($event)"></div>
+         @click="decreasecart($event)"
+        transition="move">
+      <span class="inner icon-remove_circle_outline"></span>
+    </div>
     <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
     <div class="cart-add icon-add_circle" @click="addcart($event)"></div>
   </div>
@@ -45,12 +49,27 @@
 <style lang="stylus" rel="stylesheet/stylus">
   .cartcontrol
     font-size: 0
-    .cart-decrease, .cart-add
+    .cart-decrease
       display: inline-block
       padding: 6px
-      color: rgb(0, 160, 220)
-      font-size: 24px
-      line-height: 24px
+      transition: all 0.4s linear
+      /*动画结束之后的样式*/
+      &.move-transition
+        opacity: 1
+        transform: translate3D(0, 0, 0)
+        .inner
+          display: inline-block
+          color: rgb(0, 160, 220)
+          font-size: 24px
+          line-height: 24px
+          transition: all 0.4s linear
+          transform: rotate(0)
+        /*动画进入和离开的样式*/
+      &.move-enter,&.move-leave
+        opacity: 0
+        transform: translate3D(24, 0, 0)
+        .inner
+          transform: rotate(180deg)
     .cart-count
       display: inline-block
       vertical-align: top
@@ -62,4 +81,8 @@
       color: rgb(147, 153, 159)
     .cart-add
       display: inline-block
+      padding: 6px
+      color: rgb(0, 160, 220)
+      font-size: 24px
+      line-height: 24px
 </style>

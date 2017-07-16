@@ -235,10 +235,27 @@ this.$nextTick( () => {
 ```
 2. vue中通过在html标签中添加v-el指定获得dom
 
-//html
+```js
 <p v-el:menu-wrapper></p>
- //js
 this.$els.menuWrapper // 得到的就是p元素
+```
+
+3. vue中对未知对象添加属性，并更新dom
+```js
+Vue.set(target, key, value)
+第一个参数是：对象
+第二个参数是：要添加的对象的属性的名字
+第三个参数是： 添加对象属性的值
+```
+
+4.当给dom元素注册点击事件的时候，在PC端的时候回触发两次
+所以要禁止一下
+```js
+if(!event._constructed){
+  return;
+}
+```
+
 
 #  better-scroll插件的使用(移动端滚动的插件)
 1. npm install better-scroll
