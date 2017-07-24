@@ -263,9 +263,11 @@ if(!event._constructed){
 // 调用子组件中的drop方法
 this.$refs.shopcart.drop(target);
 ```
-6. vue子组件向父组件传参
+6. vue子组件向父组件传参(通信)
+
+通常通过点击事件触发向父组件传参等等
 ```js
-// 派发事件，首先在实例上触发它，然后沿着父链向上冒泡在触发一个监听器后停止。
+// 1.派发事件，通过冒泡的方式传递事件，首先在实例上触发它，然后沿着父链向上冒泡在触发一个监听器后停止。
  //第一个参数是：事件名称
  //第二个参数是：事件的参数值
 this.$dispatch('cart.add', event.target);
@@ -276,6 +278,7 @@ events: {
         this._drop(target);
       }
     }
+// 2.$broadcast-通过广播的方式向子孙组件传递事件
 ``` 
 
 
@@ -283,7 +286,10 @@ events: {
 1. npm install better-scroll
 2. 初始化需要滚动的DOM元素
 ```js
+//第一个参数是：dom对象，第二个参数是对象(传值)
     this.menuScroll = new BScroll(this.$els.menuWrapper, {
+      click: true,//可以触发点击
+      //......
     });
     this.foodsScroll = new BScroll(this.$els.foodsWrapper, {
     });
@@ -304,4 +310,5 @@ events: {
 
 # vuex认识
 Vuex是类似与Redux的状态管理器，用来管理vue的所有组件状态。
+Vuex会让你的Vue代码足够灵活可控，把数据统一存入state,只允许通过Actions触发Mutations修改
 

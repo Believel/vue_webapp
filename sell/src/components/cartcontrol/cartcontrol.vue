@@ -3,12 +3,12 @@
     <!--添加动画效果：内层负责滚动，-->
     <div class="cart-decrease "
          v-show="food.count>0"
-         @click="decreasecart($event)"
+         @click.stop.prevent="decreasecart($event)"
          transition="move">
       <span class="inner icon-remove_circle_outline"></span>
     </div>
     <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
-    <div class="cart-add icon-add_circle" @click="addcart($event)"></div>
+    <div class="cart-add icon-add_circle" @click.stop.prevent="addcart($event)"></div>
   </div>
 </template>
 
