@@ -280,7 +280,9 @@ events: {
     }
 // 2.$broadcast-通过广播的方式向子孙组件传递事件
 ``` 
-
+7.引入模块注意的地方
+通过`export default {}`定义的使用的时候直接 `import modelName from` '文件位置'引入使用
+通过`export function 方法名` 定义的时候需要`import {方法名} from '文件位置'`引入使用
 
 #  better-scroll插件的使用(移动端滚动的插件)
 1. npm install better-scroll

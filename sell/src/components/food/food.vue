@@ -39,18 +39,18 @@
         <!--评价列表-->
         <div class="rating-wrapper">
           <ul v-show="food.ratings && food.ratings.length">
-            <li v-for="rating in food.ratings" class="rating-item">
+            <li v-for="rating in food.ratings" class="rating-item" v-show="needShow(rating.rateType,rating.text)">
               <div class="user">
                 <span class="username">{{rating.username}}</span>
                 <img class="avatar" width="12" height="12" :src="rating.avatar">
               </div>
-              <div class="time">{{rating.rateTime}}</div>
+              <div class="time">{{rating.rateTime | formatDate}}</div>
               <p class="text">
                 <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></span>{{rating.text}}
               </p>
             </li>
           </ul>
-          <div class="no-rating" v-show="!food.ratings || !food.rating.length"></div>
+          <div class="no-rating" v-show="!food.ratings || !food.ratings.length">暂无评价</div>
         </div>
       </div>
     </div>
@@ -60,6 +60,8 @@
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
   import Vue from 'vue';
+//  引用自己定义的模块
+  import {formatDate} from 'common/js/date.js';
   import cartcontrol from 'components/cartcontrol/cartcontrol';
   import split from 'components/split/split';
   import ratingselect from 'components/ratingselect/ratingselect';
@@ -112,6 +114,16 @@
         }
         this.$dispatch('cart.add', event.target);
         Vue.set(this.food, 'count', 1);
+      },
+      needShow(type, text) {
+        if (this.onlyContent && !text) {
+          return false;
+        }
+        if (this.selectType === All) {
+          return true;
+        } else {
+          return type === this.selectType;
+        }
       }
     },
     components: {
@@ -122,9 +134,23 @@
     events: {
       'ratingtype.select'(type) {
         this.selectType = type;
+        this.$nextTick(() => {
+          this.scroll.refresh();
+        });
       },
       'content.toggle'(content) {
         this.onlyContent = content;
+//        异步更新dom
+        this.$nextTick(() => {
+          this.scroll.refresh();
+        });
+      }
+    },
+    filters: {
+      formatDate(time) {
+        let date = new Date(time);
+//        定义一个转化相应格式的时间函数
+        return formatDate(date, 'yyyy-MM-dd hh:mm');
       }
     }
   };
