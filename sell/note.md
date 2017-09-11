@@ -59,6 +59,17 @@ apiRoutes.get('/ratings', function (req, res){
 // 在应用中加载模块
 app.use('/api', apiRoutes);
 ```
+# vue中拿到mock的数据
+```js
+created() {
+      this.$http.get('/api/ratings').then((response) => {
+        response = response.body;
+        if (response.errno === ERR_OK) {
+          this.ratings = response.data;
+        }
+      });
+    }
+```
 # 组件拆分
 1. 编写vue file 代码块
 2. 安装stylus-loader
@@ -154,7 +165,7 @@ border-1px(@color)
 示例：![bacdrop-fiter](https://raw.githubusercontent.com/Believel/MarkdownPhotos/master/imgs/vue-sell/backdrop-filter.png)
 
 6. css sticky footer 布局
-概括如下：如果页面内容不够长的时候，页脚块粘贴在视窗底部；如果内容足够长时，页脚块会被内容向下推送。
+  概括如下：如果页面内容不够长的时候，页脚块粘贴在视窗底部；如果内容足够长时，页脚块会被内容向下推送。
 ```html
       <div class="detail-wrapper clearfix">
           <div class="detail-main">
@@ -188,8 +199,8 @@ border-1px(@color)
 示例：![sticky footer ](https://raw.githubusercontent.com/Believel/MarkdownPhotos/master/imgs/vue-sell/sticky-footer.png)
 
 7. CSS3的calc()使用
-calculate是css3的一个新增的功能，用来指定元素的长度。
-最大的好处是用在流体布局上，可以通过calc()计算得到元素的宽度。
+  calculate是css3的一个新增的功能，用来指定元素的长度。
+  最大的好处是用在流体布局上，可以通过calc()计算得到元素的宽度。
 
 ```js
 //calc()语法
@@ -236,6 +247,7 @@ this.$nextTick( () => {
 2. vue中通过在html标签中添加v-el指定获得dom
 
 ```js
+注意：v-el:menu-wrapper冒号前后不要有空格
 <p v-el:menu-wrapper></p>
 this.$els.menuWrapper // 得到的就是p元素
 ```
@@ -279,15 +291,18 @@ events: {
       }
     }
 // 2.$broadcast-通过广播的方式向子孙组件传递事件
-``` 
+```
 7.引入模块注意的地方
-通过`export default {}`定义的使用的时候直接 `import modelName from` '文件位置'引入使用
+
+通过`export default {}`定义的使用的时候直接 `import modelName from` '文件位置'引入使用;
+
 通过`export function 方法名` 定义的时候需要`import {方法名} from '文件位置'`引入使用
 
 #  better-scroll插件的使用(移动端滚动的插件)
 1. npm install better-scroll
 2. 初始化需要滚动的DOM元素
 ```js
+// 内层宽度超过外层宽度
 //第一个参数是：dom对象，第二个参数是对象(传值)
     this.menuScroll = new BScroll(this.$els.menuWrapper, {
       click: true,//可以触发点击
@@ -297,7 +312,9 @@ events: {
     });
 ```
 3. 商品滚动案例功能需求
+
 (1)计算每个区块的高度，然后根据索引值在左边的菜单项中显示高亮的效果，每个区块的高度是一次联动增加的。
+
 (2)左侧菜单项点击的时候，右侧也显示相应的区块
     根据点击对应的菜单项获得索引值，然后根据当前索引找右侧元素的索引，最后滚动到那个索引元素下面。
 
@@ -311,6 +328,7 @@ events: {
 
 
 # vuex认识
+
 Vuex是类似与Redux的状态管理器，用来管理vue的所有组件状态。
 Vuex会让你的Vue代码足够灵活可控，把数据统一存入state,只允许通过Actions触发Mutations修改
 

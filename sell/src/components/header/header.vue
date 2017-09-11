@@ -141,10 +141,10 @@
           .icon
             vertical-align: top
             display: inline-block
-            width: 12px
-            height: 12px
+            width: 16px
+            height: 16px
             margin-right: 4px
-            background-size: 12px 12px
+            background-size: 16px 16px
             background-repeat: no-repeat
             &.decrease
               bg-image('decrease_1')
