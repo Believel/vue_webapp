@@ -73,6 +73,7 @@
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
+  import {saveToLocal, loadFromLocal} from 'common/js/store';
   import star from 'components/star/star';
   import split from 'components/split/split';
 
@@ -84,7 +85,9 @@
     },
     data() {
       return {
-        favorite: false
+        favorite: (() => {
+          return loadFromLocal(this.seller.id, 'favorite', false);
+        })()
       };
     },
     created() {
@@ -109,6 +112,8 @@
           return;
         }
         this.favorite = !this.favorite;
+//        缓存在前端
+        saveToLocal(this.seller.id, 'favorite', this.favorite);
       },
       _initScroll() {
         if (!this.scroll) {
@@ -210,7 +215,7 @@
         width: 50px
         top: 18px
         right: 11px
-//        /*text-align: center*/
+        text-align: center
         .icon-favorite
           display: block
           margin-bottom: 4px
@@ -266,6 +271,7 @@
         &.special
           bg-image('special_4')
       .text
+        display: inline-block
         font-size: 12px
         line-height: 16px
         color: rgb(7, 17, 27)

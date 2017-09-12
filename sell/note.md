@@ -323,8 +323,15 @@ events: {
 
 问题：如何跟每个v-for遍历的元素添加v-ref指令，手动添加得到的是undefined?
 
-
-
+# 额外js方法
+1.JSON.parse(str) 用于从一个字符串中解析出json对象
+2.JSON.stringify(obj)用于从一个对象解析出字符串
+3.Object.assign({}, sourceObj, destObj); 扩展对象的属性   es6
+# vuejs打包
+1.运行打包命令：npm run build
+2.执行打包后的项目：利用express启动一个server
+在根目录下创建一个prod.server.js
+3.运行 node prod.server.js
 
 
 # vuex认识
@@ -332,3 +339,4 @@ events: {
 Vuex是类似与Redux的状态管理器，用来管理vue的所有组件状态。
 Vuex会让你的Vue代码足够灵活可控，把数据统一存入state,只允许通过Actions触发Mutations修改
 
+项目基于vue1.0
